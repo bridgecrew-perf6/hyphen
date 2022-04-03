@@ -5,7 +5,7 @@
 import React from "react";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
-import { MantineProvider } from "@mantine/core";
+import { Center, Loader, MantineProvider } from "@mantine/core";
 import emotionReset from "emotion-reset";
 import { css, Global } from "@emotion/react";
 import SetupDiagnostics from "./setup/diagnostics";
@@ -14,10 +14,33 @@ import SetupHome from "./setup";
 import loadable from "@loadable/component";
 import pMinDelay from "p-min-delay";
 import { FullscreenLoader } from "../components/Loader";
+import SetupDatabase from "./setup/database";
 
-const AsyncSetup = loadable(() => pMinDelay(import("./setup/root"), 1000), {
+const AsyncSetup = loadable(() => pMinDelay(import("./setup/root"), 500), {
 	fallback: <FullscreenLoader />,
 });
+
+const AsyncSetupDatabase = loadable(
+	() => pMinDelay(import("./setup/database"), 500),
+	{
+		fallback: (
+			<Center>
+				<Loader />
+			</Center>
+		),
+	}
+);
+
+const AsyncSetupPostDatabase = loadable(
+	() => pMinDelay(import("./setup/post-database"), 1000),
+	{
+		fallback: (
+			<Center>
+				<Loader />
+			</Center>
+		),
+	}
+);
 
 const Application = () => {
 	return (
@@ -45,6 +68,14 @@ const Application = () => {
 							<Route
 								path={"diagnostics"}
 								element={<SetupDiagnostics />}
+							/>
+							<Route
+								path={"database"}
+								element={<AsyncSetupDatabase />}
+							/>
+							<Route
+								path={"post-database"}
+								element={<AsyncSetupPostDatabase />}
 							/>
 						</Route>
 					</Routes>

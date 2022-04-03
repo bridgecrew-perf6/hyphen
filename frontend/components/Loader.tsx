@@ -21,16 +21,9 @@ export const FullscreenLoader = () => {
 			})}
 		>
 			<Center sx={{ maxWidth: 700, margin: "auto", height: "100vh" }}>
-				<Card
-					sx={{ width: "100%" }}
-					shadow={"sm"}
-					p={"5rem"}
-					py={"8rem"}
-				>
-					<Stack justify={"center"} align={"center"}>
-						<Loader />
-					</Stack>
-				</Card>
+				<Stack justify={"center"} align={"center"}>
+					<Loader />
+				</Stack>
 			</Center>
 		</AppShell>
 	);

@@ -28,7 +28,11 @@ const SetupHome = () => {
 				>
 					Diagnostics
 				</Button>
-				<Button color={"blue"} variant={"filled"}>
+				<Button
+					onClick={() => navigate("database")}
+					color={"blue"}
+					variant={"filled"}
+				>
 					Start setup
 				</Button>
 			</Group>

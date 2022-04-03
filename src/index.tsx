@@ -8,14 +8,19 @@ import fastifyStatic from "fastify-static";
 import { resolve } from "path";
 import { renderToStaticMarkup, renderToString } from "react-dom/server";
 import { readdirSync } from "fs-extra";
-import { Center, MantineProvider, Title } from "@mantine/core";
+import { Center, Title } from "@mantine/core";
 import { createStylesServer, ServerStyles } from "@mantine/ssr";
+import api from "../api";
+import fastifyWebsocket from "fastify-websocket";
 
 const convoy = fastify({
 	logger: true,
 });
 
-convoy.get("/*", {}, (request, reply) => {
+convoy.register(fastifyWebsocket);
+convoy.register(api, { prefix: "/api" });
+
+convoy.get("*", {}, (request, reply) => {
 	const scripts = readdirSync(
 		resolve(process.cwd(), "dist", "www", "js")
 	).map((s) => `/_convoy/www/js/${s}`);
@@ -75,7 +80,11 @@ convoy.register(fastifyStatic, {
 	prefix: "/_convoy/www",
 });
 
-convoy.listen(process.env.PORT || 9000, "0.0.0.0", () => {
+convoy.listen(process.env.PORT || 9000, "0.0.0.0", (err) => {
+	if (err) throw err;
+
+	console.log(convoy.printRoutes());
+
 	convoy.log.info(
 		`Convoy Dashboard listening at http://0.0.0.0:${
 			process.env.PORT || 9000
