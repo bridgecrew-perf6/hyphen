@@ -12,10 +12,13 @@ import { Center, Title } from "@mantine/core";
 import { createStylesServer, ServerStyles } from "@mantine/ssr";
 import api from "../api";
 import fastifyWebsocket from "fastify-websocket";
+import ConfigManager from "../config";
 
 const convoy = fastify({
 	logger: true,
 });
+
+export const config = new ConfigManager();
 
 convoy.register(fastifyWebsocket);
 convoy.register(api, { prefix: "/api" });
@@ -80,14 +83,21 @@ convoy.register(fastifyStatic, {
 	prefix: "/_convoy/www",
 });
 
-convoy.listen(process.env.PORT || 9000, "0.0.0.0", (err) => {
-	if (err) throw err;
+config
+	.init()
+	.then(() => {
+		convoy.listen(process.env.PORT || 9000, "0.0.0.0", (err) => {
+			if (err) throw err;
 
-	console.log(convoy.printRoutes());
+			console.log(convoy.printRoutes());
 
-	convoy.log.info(
-		`Convoy Dashboard listening at http://0.0.0.0:${
-			process.env.PORT || 9000
-		}`
-	);
-});
+			convoy.log.info(
+				`Convoy Dashboard listening at http://0.0.0.0:${
+					process.env.PORT || 9000
+				}`
+			);
+		});
+	})
+	.catch((e) => {
+		throw e;
+	});
