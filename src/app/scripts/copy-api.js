@@ -14,6 +14,8 @@ const main = async () => {
 		resolve(process.cwd(), "pages", "api"),
 		{ recursive: true }
 	);
+
+	rimraf.sync(resolve(process.cwd(), "pages", "api", "package.json"));
 };
 
 main();

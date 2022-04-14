@@ -8,7 +8,6 @@
         "lint": "node scripts/copy-api.js && next lint"
     },
     "dependencies": {
-        "@cliqz/adblocker-puppeteer": "^1.23.7",
         "@emotion/cache": "^11.7.1",
         "@emotion/css": "^11.9.0",
         "@emotion/react": "^11.9.0",
@@ -16,12 +15,9 @@
         "@emotion/styled": "^11.8.1",
         "@fdn-ui/icons-react": "^0.0.11",
         "@radix-ui/react-popover": "^0.1.6",
-        "chrome-aws-lambda": "^10.1.0",
-        "cross-fetch": "^3.1.5",
         "emotion-reset": "^3.0.1",
         "next": "12.1.4",
         "nookies": "^2.5.2",
-        "puppeteer": "^13.5.2",
         "react": "18.0.0",
         "react-dom": "18.0.0",
         "react-loading-skeleton": "^3.1.0"
