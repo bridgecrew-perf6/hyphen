@@ -9,10 +9,7 @@ const rimraf = require("rimraf");
 const main = async () => {
 	rimraf.sync(resolve(process.cwd(), "pages", "api"));
 
-	symlinkSync(
-		resolve(process.cwd(), "api"),
-		resolve(process.cwd(), "pages", "api")
-	);
+	symlinkSync("../api", "./pages/api");
 };
 
 main();
