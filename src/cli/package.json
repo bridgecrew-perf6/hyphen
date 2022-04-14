@@ -1,0 +1,28 @@
+{
+    "name": "cli",
+    "version": "0.0.0",
+    "main": "./src/main.ts",
+    "description": "CLI for Hyphen",
+    "scripts": {
+        "start": "ts-node src/main.ts",
+        "dev": "yarn build && node out/main.js",
+        "build": "esbuild src/main.ts --bundle --platform=node --outdir=out --sourcemap=inline",
+        "install-cli": "sudo npm i -g && hyphen"
+    },
+    "bin": {
+        "hyphen": "./src/main.ts"
+    },
+    "license": "MPL-2.0",
+    "dependencies": {
+        "ajv": "^8.11.0",
+        "chalk": "^5.0.1",
+        "commander": "^9.1.0",
+        "fs-extra": "^10.0.1",
+        "xdg-app-paths": "^7.3.0"
+    },
+    "devDependencies": {
+        "@types/chalk": "^2.2.0",
+        "@types/fs-extra": "^9.0.13",
+        "ts-node": "^10.7.0"
+    }
+}
