@@ -50,12 +50,14 @@ export const NavBar = () => {
 								<Logo />
 							</Stack>
 						</Link>
+
 						<VerticalLine
 							className={css({
 								marginLeft: "1rem",
 								marginRight: "0.5rem",
 							})}
 						/>
+
 						<RealmSwitcher />
 					</Group>
 

@@ -19,9 +19,14 @@ const StyledOutlinedButton = styled(StyledButton)`
 		background-color: rgb(0, 0, 0, 0.075);
 	}
 
-	&:hover:active {
+	&:hover:active,
+	&:focus:active {
 		box-shadow: 0 0 0 1px rgb(0, 0, 0, 0.15);
 		background-color: rgb(0, 0, 0, 0.15);
+	}
+
+	&:focus {
+		outline: 3px solid rgb(0, 0, 0, 0.5);
 	}
 `;
 

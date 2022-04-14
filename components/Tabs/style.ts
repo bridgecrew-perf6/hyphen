@@ -4,7 +4,7 @@
 
 import styled from "@emotion/styled";
 
-export const StyledTab = styled.a`
+export const StyledTab = styled.button`
 	display: flex;
 	align-items: center;
 
@@ -16,7 +16,7 @@ export const StyledTab = styled.a`
 	user-select: none;
 	cursor: pointer;
 
-	transition: 0.1s border-bottom, 0.1s color;
+	transition: 0.2s border-bottom, 0.2s color, 0.05s outline;
 
 	border-bottom: 2px solid rgba(0, 0, 0, 0);
 
@@ -24,8 +24,13 @@ export const StyledTab = styled.a`
 	fill: currentColor;
 
 	${({ active }: { active?: boolean }) => `
-        border-bottom: ${active && `2px solid #1662D3`};
-        color: ${active && `#1662D3`};
+        border-bottom: ${active && `2px solid rgba(22, 98, 211, 1)`};
+        color: ${active && `rgba(22, 98, 211, 1)`};
+
+		&:focus {
+			outline: 3px solid ${active ? `rgba(22, 98, 211, 0.5)` : `rgba(0, 0, 0, 0.5)`};
+			outline-offset: 0px;
+		}
 
         ${
 			!active &&

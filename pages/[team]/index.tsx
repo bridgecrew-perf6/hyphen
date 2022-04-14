@@ -5,10 +5,13 @@
 import { Home, HomeFilled, Stocks } from "@fdn-ui/icons-react";
 import React from "react";
 import { Button } from "../../components/Button";
+import { Checkbox } from "../../components/Checkbox";
 import { Content } from "../../components/Content";
+import { DocumentTitle } from "../../components/DocumentTitle";
 import { Group } from "../../components/Group";
 import { Header } from "../../components/Header";
 import { Stack } from "../../components/Stack";
+import { Switch } from "../../components/Switch";
 import { Tabs } from "../../components/Tabs";
 import { Tab } from "../../components/Tabs/Tab";
 import { Text } from "../../components/Text";
@@ -20,6 +23,8 @@ const TeamPage = () => {
 
 	return (
 		<>
+			<DocumentTitle>Dashboard ― Hyphen</DocumentTitle>
+
 			<Header>
 				<Content>
 					<H1>Welcome</H1>
@@ -128,6 +133,11 @@ const TeamPage = () => {
 						</Button>
 					</Group>
 				</Stack>
+
+				<Group gap={1}>
+					<Switch checked />
+					<Checkbox />
+				</Group>
 
 				{/* {activeTab == 0 && <Text>Overview Tab</Text>}
 				{activeTab == 1 && <Text>Activity Tab</Text>} */}

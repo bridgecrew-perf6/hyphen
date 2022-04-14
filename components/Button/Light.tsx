@@ -18,8 +18,13 @@ const StyledLightButton = styled(StyledButton)`
 		background-color: rgba(22, 98, 211, 0.125);
 	}
 
-	&:hover:active {
+	&:hover:active,
+	&:focus:active {
 		background-color: rgba(22, 98, 211, 0.225);
+	}
+
+	&:focus {
+		outline: 3px solid rgba(22, 98, 211, 0.5);
 	}
 `;
 

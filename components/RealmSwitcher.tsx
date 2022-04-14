@@ -7,6 +7,8 @@ import { ChevronDown12 } from "@fdn-ui/icons-react";
 import { useRouter } from "next/router";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import React, { Suspense } from "react";
+import Skeleton from "react-loading-skeleton";
+import { useHasLoaded } from "../hooks/loaded";
 import { Avatar } from "./Avatar";
 import { Button } from "./Button";
 import { Group } from "./Group";
@@ -24,6 +26,7 @@ import { Text } from "./Text";
 export const RealmSwitcher = () => {
 	const router = useRouter();
 	const [open, setOpen] = React.useState(false);
+	const loaded = useHasLoaded();
 
 	const { scope } = parseCookies();
 
@@ -65,8 +68,32 @@ export const RealmSwitcher = () => {
 							}.png`}
 							size={1.5}
 						/>
-						<Text>{scope == "dothq" ? "Dot HQ" : "Kieran"}</Text>
-						<Tag>{scope == "dothq" ? "Team" : "Personal"}</Tag>
+						<Text>
+							{loaded ? (
+								scope == "dothq" ? (
+									"Dot HQ"
+								) : (
+									"Kieran"
+								)
+							) : (
+								<Skeleton width={100} />
+							)}
+						</Text>
+						<Tag>
+							{loaded ? (
+								scope == "dothq" ? (
+									"Team"
+								) : (
+									"Personal"
+								)
+							) : (
+								<Skeleton
+									width={70}
+									baseColor={"transparent"}
+									highlightColor={"transparent"}
+								/>
+							)}
+						</Tag>
 						<ChevronDown12 fill={"currentColor"} />
 					</Suspense>
 				</Group>

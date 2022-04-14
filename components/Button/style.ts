@@ -10,7 +10,7 @@ export const StyledButton = styled.button`
 
 	border-radius: 0.5rem;
 
-	transition: 0.2s background-color, 0.2s box-shadow;
+	transition: 0.2s background-color, 0.2s box-shadow, 0.05s outline;
 
 	& svg {
 		fill: currentColor;
@@ -18,6 +18,15 @@ export const StyledButton = styled.button`
 
 	&:active:hover {
 		transition: 0.05s background-color, 0.05s box-shadow;
+	}
+
+	&:focus {
+		outline-offset: 2px;
+		outline: 3px solid black;
+	}
+
+	&:focus:not(:focus-visible) {
+		outline: none;
 	}
 
 	${({

@@ -4,10 +4,18 @@
 
 import { AppProps } from "next/app";
 import Head from "next/head";
+import React from "react";
+import "react-loading-skeleton/dist/skeleton.css";
 import { GlobalStyle } from "../components/GlobalStyle";
 import { NavBar } from "../components/NavBar";
 
 const App = ({ Component, pageProps }: AppProps) => {
+	React.useEffect(() => {
+		window.addEventListener("load", () => {
+			(window as any).finishedLoading = true;
+		});
+	}, []);
+
 	return (
 		<>
 			<Head>

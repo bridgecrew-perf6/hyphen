@@ -18,8 +18,13 @@ const StyledFilledButton = styled(StyledButton)`
 		background-color: rgb(18, 78, 169);
 	}
 
-	&:hover:active {
+	&:hover:active,
+	&:focus:active {
 		background-color: rgb(13, 59, 127);
+	}
+
+	&:focus {
+		outline: 3px solid rgba(22, 98, 211, 0.5);
 	}
 `;
 

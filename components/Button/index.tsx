@@ -27,7 +27,7 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
 }
 
 const ButtonLabel = styled(Text)`
-	padding: 0 1rem;
+	padding: 0 1.5rem;
 	height: 100%;
 `;
 
@@ -42,8 +42,8 @@ export const Button = (props: ButtonProps) => {
 						props.iconLeft ||
 						props.iconRight ||
 						typeof props.children !== "string"
-							? "0"
-							: "0 1rem",
+							? "0 !important"
+							: "",
 				})}
 			>
 				{props.children}
@@ -64,7 +64,7 @@ export const Button = (props: ButtonProps) => {
 		default:
 			return (
 				<OutlinedButton
-					className={css({ boxShadow: "none" })}
+					className={css({ boxShadow: "none !important" })}
 					{...props}
 				>
 					{children}

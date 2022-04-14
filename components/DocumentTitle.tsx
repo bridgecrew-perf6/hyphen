@@ -2,4 +2,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-export const FRONTEND_APP_MAX_WIDTH = 1100;
+import Head from "next/head";
+
+export const DocumentTitle = ({ children }: { children: string }) => {
+	return (
+		<Head>
+			<title>{children}</title>
+		</Head>
+	);
+};
