@@ -24,7 +24,7 @@ const locateAPIBase = async (
 	});
 };
 
-export const getHyphenServerURI = async () => {
+export const getHyphenServerURI = async (): Promise<any> => {
 	const config = getMergedConfig();
 
 	if (
@@ -44,7 +44,7 @@ export const getHyphenServerURI = async () => {
 		const resultMatch = results.find((r) => r.result == true);
 
 		if (resultMatch) {
-			return new URL(resultMatch.path, serverURL);
+			return new URL(resultMatch.path, serverURL).href.replace(/\/$/, "");
 		} else {
 			error(
 				`Failed to resolve \`${serverURL}\`. Is the Hyphen server running and accessible?`
