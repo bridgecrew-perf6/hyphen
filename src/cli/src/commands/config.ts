@@ -22,15 +22,14 @@ export default {
 		program?: Command
 	) => {
 		if (!keyval) {
-			info(`Hyphen ${options?.G ? "Global" : "Local"} Config:`);
+			info(`Hyphen Global Config:`);
 
-			const config = getConfig(options?.G ? "global" : "local");
+			const globalConfig = getConfig("global");
+			const localConfig = getConfig("local");
 
-			if (Object.keys(config).length == 0) {
-				info("For help, append `--help` to the command.");
-			} else {
+			if (Object.keys(globalConfig).length >= 1) {
 				console.log(
-					Object.entries(config)
+					Object.entries(globalConfig)
 						.map(
 							([key, value]) =>
 								`     ${key} ${chalk.dim("=")} \`${value}\``
@@ -39,6 +38,20 @@ export default {
 				);
 			}
 
+			info(`Hyphen Local Config:`);
+
+			if (Object.keys(localConfig).length >= 1) {
+				console.log(
+					Object.entries(localConfig)
+						.map(
+							([key, value]) =>
+								`     ${key} ${chalk.dim("=")} \`${value}\``
+						)
+						.join("\n")
+				);
+			}
+
+			info("For help, append `--help` to the command.");
 			return;
 		}
 
