@@ -6,7 +6,9 @@
 	},
 	"files.exclude": {
 		"**/node_modules": true,
-		"**/pages/api": true
+		"**/pages/api": true,
+		"**/out": true,
+		"**/.next": true
 	},
 	"macros.list": {
 		"license": [
