@@ -12,6 +12,8 @@ import { resolve } from "path";
 import puppeteer from "puppeteer";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+	res.setHeader("cache-control", "no-cache, must-revalidate, max-age=0");
+
 	const { w, h, q, url } = req.query as any;
 
 	if (!url) res.end(Buffer.from(""));
