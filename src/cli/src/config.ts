@@ -84,6 +84,16 @@ export const setConfig = (
 	key: string,
 	value: any
 ) => {
+	const filterNullValues = (obj: any) => {
+		Object.keys(obj).forEach((key) => {
+			if (obj[key] === null) {
+				delete obj[key];
+			}
+		});
+
+		return obj;
+	};
+
 	const ajv = new Ajv();
 	const validate = ajv.compile(configSchema);
 
@@ -92,7 +102,7 @@ export const setConfig = (
 	if (!validate.errors) {
 		const config = getConfig(scope);
 
-		const newConfig = { ...config, [key]: value };
+		const newConfig = filterNullValues({ ...config, [key]: value });
 
 		writeFileSync(getConfigPath(scope), JSON.stringify(newConfig, null, 2));
 

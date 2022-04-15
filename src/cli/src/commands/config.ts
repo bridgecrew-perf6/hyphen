@@ -59,7 +59,9 @@ export default {
 
 		const config = getConfig(options?.G ? "global" : "local") as any;
 
-		if (key && !value) {
+		if (keyval == `${key}=`) {
+			setConfig(options?.G ? "global" : "local", key, null);
+		} else if (key && !value) {
 			if (!(key in config)) return;
 
 			console.log(`${key} ${chalk.dim("=")} \`${config[key]}\``);
