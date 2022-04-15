@@ -3,15 +3,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { getMergedConfig } from "../config";
+import { info } from "../utils/log";
 import { getHyphenServerURI } from "../utils/server";
 
 export default {
 	name: "deploy [directory]",
 	description: "Deploy a service to the Hyphen server",
-	action: () => {
+	action: async () => {
 		const config = getMergedConfig();
-		const uri = getHyphenServerURI();
+		const uri = await getHyphenServerURI();
 
-		console.log(uri);
+		info(`Connected to Hyphen at \`${uri}\`.`);
 	},
 };

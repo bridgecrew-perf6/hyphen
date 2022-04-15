@@ -2,11 +2,29 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import axios from "axios";
 import { getMergedConfig } from "../config";
 import { error } from "./log";
 import { isURL } from "./url";
 
-export const getHyphenServerURI = () => {
+const locateAPIBase = async (
+	host: string,
+	path: string
+): Promise<{ path: string; result: boolean }> => {
+	return new Promise(async (resolve) => {
+		const url = new URL(path, host);
+
+		try {
+			const res = await axios.get(url.href);
+
+			resolve({ path, result: res.data && "version" in res.data });
+		} catch (e: any) {
+			resolve({ path, result: false });
+		}
+	});
+};
+
+export const getHyphenServerURI = async () => {
 	const config = getMergedConfig();
 
 	if (
@@ -14,9 +32,31 @@ export const getHyphenServerURI = () => {
 		config["server.url"]?.length &&
 		isURL(config["server.url"])
 	) {
-		return config["server.url"];
+		const serverURL = config["server.url"];
+
+		const checks = [
+			locateAPIBase(serverURL, "/"),
+			locateAPIBase(serverURL, "/api"),
+		];
+
+		const results = await Promise.all(checks);
+
+		const resultMatch = results.find((r) => r.result == true);
+
+		if (resultMatch) {
+			return new URL(resultMatch.path, serverURL);
+		} else {
+			error(
+				`Failed to resolve \`${serverURL}\`. Is the Hyphen server running and accessible?`
+			);
+			error(
+				`Use \`hyphen config -g server.url <value>\` to set globally.`
+			);
+		}
 	} else {
-		error(`No \`server.url\` option defined.`);
+		error(
+			`The \`server.url\` config option is not defined or is malformed.`
+		);
 		error(`Use \`hyphen config -g server.url <value>\` to set globally.`);
 	}
 };
