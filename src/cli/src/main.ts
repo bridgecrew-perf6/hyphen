@@ -22,9 +22,25 @@ program
 	.description(chalk.dim(`Hyphen CLI ${version}`))
 	.version(version, "-V, --version", "Show the version number")
 	.helpOption("-h, --help", "Display help for command")
+	.option("-c, --config <key>=<val>", "Override a config variable")
+	.option("-v, --verbose", "Enable verbose logging mode")
 	.addHelpCommand("help [cmd]", "Display help for command")
 	.addHelpText("after", examplesHelpText)
 	.usage("[options] [cmd]");
+
+process.env.HYPHEN_CLI_VERSION = version;
+
+program.on("option:config", (value: string) => {
+	if (!value.includes("=")) return;
+
+	const [key, val] = value.split("=");
+
+	process.env[`HYPHEN_CONFIG_OVERRIDE_${key.toUpperCase()}`] = val.toString();
+});
+
+program.on("option:verbose", () => {
+	process.env.VERBOSE = "1";
+});
 
 for (const [_, value] of Object.entries(commands) as any) {
 	const cmd = program

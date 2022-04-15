@@ -54,16 +54,31 @@ export const getConfig = (scope: "local" | "global") => {
 	return JSON.parse(configData);
 };
 
+export const getEnvConfig = () => {
+	const env = Object.fromEntries(
+		Object.entries(process.env)
+			.filter(([key]) => key.startsWith("HYPHEN_CONFIG_OVERRIDE_"))
+			.map(([key, value]) => [
+				key.split("HYPHEN_CONFIG_OVERRIDE_")[1].toLowerCase(),
+				value,
+			])
+	);
+
+	return env;
+};
+
 export const getMergedConfig = (): Configuration => {
 	const ajv = new Ajv();
 
 	const globalConfig = getConfig("global");
 	const localConfig = getConfig("local");
+	const envConfig = getEnvConfig();
 
 	const config: Configuration = {
 		...defaultConfig,
 		...globalConfig,
 		...localConfig,
+		...envConfig,
 	};
 
 	const validate = ajv.compile(configSchema);
