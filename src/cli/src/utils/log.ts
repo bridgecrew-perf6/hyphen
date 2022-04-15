@@ -19,3 +19,9 @@ export const info = (...args: any[]) => {
 export const error = (...args: any[]) => {
 	console.error(...subs(`${chalk.red("error")}`, ...args));
 };
+
+export const debug = (...args: any[]) => {
+	if (!process.env.VERBOSE) return;
+
+	console.debug(...subs(`${chalk.gray("debug")}`, ...args));
+};
