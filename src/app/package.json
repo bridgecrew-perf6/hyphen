@@ -2,10 +2,11 @@
     "name": "app",
     "version": "0.1.0",
     "scripts": {
-        "dev": "node scripts/copy-api.js && next dev -p 9000",
-        "build": "node scripts/copy-api.js && next build",
-        "start": "node scripts/copy-api.js && next start -p 9000",
-        "lint": "node scripts/copy-api.js && next lint"
+        "dev": "yarn copy-api && next dev -p 9000",
+        "build": "yarn copy-api && next build",
+        "start": "yarn copy-api && next start -p 9000",
+        "lint": "yarn copy-api && next lint",
+        "copy-api": "cd ../util && yarn build && cd ../app && node scripts/copy-api.js"
     },
     "dependencies": {
         "@emotion/cache": "^11.7.1",
